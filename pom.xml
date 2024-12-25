@@ -100,7 +100,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+		<!-- Security dependancy for password decrption -->
+	
+
+		<dependency>
+		    <groupId>org.bouncycastle</groupId>
+		    <artifactId>bcprov-jdk15on</artifactId>
+		    <version>1.69</version>
+		</dependency>
+
+
 
 	</dependencies>
 

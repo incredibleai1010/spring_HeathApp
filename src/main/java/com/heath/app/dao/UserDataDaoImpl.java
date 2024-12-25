@@ -1,6 +1,11 @@
 package com.heath.app.dao;
 
+import java.util.Base64;
 import java.util.List;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -43,17 +48,37 @@ public class UserDataDaoImpl implements UserDatadao {
 	}
 
 	@Override
-	public StringResponce chkLogin(UserLogin userLogin) {
+	public StringResponce chkLogin(UserLogin userLogin)  {
 		StringResponce stringResponce = new StringResponce();
 		Session currSession = entityManager.unwrap(Session.class);
-		Query<UserData> qry = currSession.createQuery("from UserData where mailId = :mailId and passwrd = :passwrd",UserData.class);
-		List<UserData> lst = qry.setParameter("mailId", userLogin.getMailId()).setParameter("passwrd", userLogin.getPasswrd()).getResultList();
-		if(lst != null && lst.size() > 0) {
-			stringResponce.setResponce("Sucess");
-		}else {
-			stringResponce.setResponce("fail");
+		try {
+			String decryptedPassword = decrypt(userLogin.getPasswrd());
+			Query<UserData> qry = currSession.createQuery("from UserData where mailId = :mailId and passwrd = :passwrd",UserData.class);
+			List<UserData> lst = qry.setParameter("mailId", userLogin.getMailId()).setParameter("passwrd", decryptedPassword).getResultList();
+			if(lst != null && lst.size() > 0) {
+				stringResponce.setResponce("Sucess");
+			}else {
+				stringResponce.setResponce("fail");
+		}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return stringResponce;
 	}
+	private String decrypt(String encryptedPassword) throws Exception {
+        byte[] keyBytes = "1234567890123456".getBytes(); // Use the same 16-character key
+        byte[] ivBytes = "1234567890123456".getBytes();  // Use the same 16-character IV
+        SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "AES");
+        IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding", "BC");
+        cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
+
+        byte[] decodedBytes = Base64.getDecoder().decode(encryptedPassword);
+        byte[] decryptedBytes = cipher.doFinal(decodedBytes);
+
+        return new String(decryptedBytes);
+    }
 
 }

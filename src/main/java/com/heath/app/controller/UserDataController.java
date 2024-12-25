@@ -27,6 +27,7 @@ public class UserDataController {
 	public List<UserData> getUser() {
 		return userDataService.getUser();
 	}
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/chkLogin")
 	public StringResponce chkLogin(@RequestBody UserLogin userLogin) {
 		return userDataService.chkLogin(userLogin);

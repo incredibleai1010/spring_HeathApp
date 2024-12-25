@@ -3,6 +3,7 @@ package com.heath.app.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,7 @@ import com.heath.app.pojo.UserLogin;
 public class UserDataServiceImpl implements UserDataService {
 	@Autowired
 	private UserDatadao userDataDao;
-
+	
 	@Transactional
 	@Override
 	public List<UserData> getUser() {
@@ -41,6 +42,7 @@ public class UserDataServiceImpl implements UserDataService {
 	}
 	@Override
 	public StringResponce chkLogin(UserLogin userLogin) {
+		
 		return userDataDao.chkLogin(userLogin);
 	}
 
