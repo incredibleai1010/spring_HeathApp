@@ -13,5 +13,7 @@ public interface UserDatadao {
 	void saveUser(UserData user);
 	void deleteUser(int id);
 	public StringResponce chkLogin(UserLogin userLogin);
+	public StringResponce signUp(UserData user);
+	
 
 }

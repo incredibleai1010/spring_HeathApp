@@ -66,6 +66,22 @@ public class UserDataDaoImpl implements UserDatadao {
 		}
 		return stringResponce;
 	}
+	@Override
+	public StringResponce signUp(UserData user)  {
+		StringResponce stringResponce = new StringResponce();
+		Session currSession = entityManager.unwrap(Session.class);
+		try {
+			String decryptedPassword = decrypt(user.getPasswrd());
+			currSession.save(user);
+			stringResponce.setResponce("Sucess");
+			return stringResponce;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return stringResponce;
+	}
+	
 	private String decrypt(String encryptedPassword) throws Exception {
         byte[] keyBytes = "1234567890123456".getBytes(); // Use the same 16-character key
         byte[] ivBytes = "1234567890123456".getBytes();  // Use the same 16-character IV

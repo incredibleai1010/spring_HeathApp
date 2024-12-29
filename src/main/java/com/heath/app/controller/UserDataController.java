@@ -23,14 +23,17 @@ public class UserDataController {
 
 	@Autowired
 	private UserDataService userDataService;
-	@GetMapping("/getUserData")
+	@GetMapping("/admin/getUserData")
 	public List<UserData> getUser() {
 		return userDataService.getUser();
 	}
-	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping("/chkLogin")
+	@PostMapping("/public/chkLogin")
 	public StringResponce chkLogin(@RequestBody UserLogin userLogin) {
 		return userDataService.chkLogin(userLogin);
+	}
+	@PostMapping("/public/signup")
+	public StringResponce signUp(@RequestBody UserData useData) {
+		return userDataService.signUp(useData);
 	}
 	
 }

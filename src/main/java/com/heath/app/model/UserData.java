@@ -13,10 +13,10 @@ public class UserData {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
 	private Integer id;
-	@Column(name = "last_name")
-	private String LastName ;
-	@Column(name = "first_Name")
-	private String FirstName ;
+	@Column(name = "last_name",nullable = false)
+	private String lastName ;
+	@Column(name = "first_Name",nullable = false)
+	private String firstName ;
 	@Column(name = "mail_id", nullable = false, unique = true)
 	private String mailId ;
 	@Column(name = "passwrd",nullable = false)
@@ -32,16 +32,16 @@ public class UserData {
 		this.id = id;
 	}
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
 	public String getFirstName() {
-		return FirstName;
+		return firstName;
 	}
 	public void setFirstName(String firstName) {
-		FirstName = firstName;
+		this.firstName = firstName;
 	}
 	public String getMailId() {
 		return mailId;
@@ -69,7 +69,7 @@ public class UserData {
 	}
 	@Override
 	public String toString() {
-		return "UserData [id=" + id + ", LastName=" + LastName + ", FirstName=" + FirstName + ", mailId=" + mailId
+		return "UserData [id=" + id + ", LastName=" + lastName + ", FirstName=" + firstName + ", mailId=" + mailId
 				+ ", passwrd=" + passwrd + ", height=" + height + ", weight=" + weight + "]";
 	}
 	

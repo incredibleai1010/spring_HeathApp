@@ -45,5 +45,9 @@ public class UserDataServiceImpl implements UserDataService {
 		
 		return userDataDao.chkLogin(userLogin);
 	}
-
+	@Override
+	public StringResponce signUp(UserData user) {
+		
+		return userDataDao.signUp(user);
+	}
 }

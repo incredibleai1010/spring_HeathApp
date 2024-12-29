@@ -11,6 +11,7 @@ import com.heath.app.pojo.UserLogin;
 public interface UserDataService {
 	List<UserData> getUser();
 	public StringResponce chkLogin(UserLogin userLogin);
+	public StringResponce signUp(UserData user);
 	UserData getUserById(int id);
 	void saveUser(UserData user);
 	void deleteUser(int id);
