@@ -52,9 +52,9 @@ public class UserDataDaoImpl implements UserDatadao {
 		StringResponce stringResponce = new StringResponce();
 		Session currSession = entityManager.unwrap(Session.class);
 		try {
-			String decryptedPassword = decrypt(userLogin.getPasswrd());
+//			String decryptedPassword = decrypt(userLogin.getPasswrd());
 			Query<UserData> qry = currSession.createQuery("from UserData where mailId = :mailId and passwrd = :passwrd",UserData.class);
-			List<UserData> lst = qry.setParameter("mailId", userLogin.getMailId()).setParameter("passwrd", decryptedPassword).getResultList();
+			List<UserData> lst = qry.setParameter("mailId", userLogin.getMailId()).setParameter("passwrd", userLogin.getPasswrd()).getResultList();
 			if(lst != null && lst.size() > 0) {
 				stringResponce.setResponce("Sucess");
 			}else {
