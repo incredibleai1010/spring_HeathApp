@@ -2,17 +2,14 @@ package com.heath.app.service;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestBody;
-
-import com.heath.app.model.UserData;
+import com.heath.app.model.UserLoginData;
 import com.heath.app.pojo.StringResponce;
-import com.heath.app.pojo.UserLogin;
 
 public interface UserDataService {
-	List<UserData> getUser();
-	public StringResponce chkLogin(UserLogin userLogin);
-	public StringResponce signUp(UserData user);
-	UserData getUserById(int id);
-	void saveUser(UserData user);
+	List<UserLoginData> getUser();
+	public StringResponce chkLogin(com.heath.app.pojo.UserLogin userLogin);
+	public StringResponce signUp(UserLoginData user);
+	UserLoginData getUserById(int id);
+	void saveUser(UserLoginData user);
 	void deleteUser(int id);
 }

@@ -7,14 +7,14 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.heath.app.pojo.UserLogin;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.heath.app.model.UserData;
+import com.heath.app.model.UserLoginData;
 import com.heath.app.pojo.StringResponce;
-import com.heath.app.pojo.UserLogin;
 
 import jakarta.persistence.EntityManager;
 @Repository
@@ -22,21 +22,21 @@ public class UserDataDaoImpl implements UserDatadao {
 	@Autowired
 	private EntityManager entityManager;
 	@Override
-	public List<UserData> getUser() {
+	public List<UserLoginData> getUser() {
 		Session currSession = entityManager.unwrap(Session.class);
-		Query<UserData> qry = currSession.createQuery("from UserData",UserData.class);
-		List<UserData> lst = qry.getResultList();
+		Query<UserLoginData> qry = currSession.createQuery("from UserData", UserLoginData.class);
+		List<UserLoginData> lst = qry.getResultList();
 		return lst;
 	}
 
 	@Override
-	public UserData getUserById(int id) {
+	public UserLoginData getUserById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void saveUser(UserData user) {
+	public void saveUser(UserLoginData user) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -53,8 +53,8 @@ public class UserDataDaoImpl implements UserDatadao {
 		Session currSession = entityManager.unwrap(Session.class);
 		try {
 //			String decryptedPassword = decrypt(userLogin.getPasswrd());
-			Query<UserData> qry = currSession.createQuery("from UserData where mailId = :mailId and passwrd = :passwrd",UserData.class);
-			List<UserData> lst = qry.setParameter("mailId", userLogin.getMailId()).setParameter("passwrd", userLogin.getPasswrd()).getResultList();
+			Query<UserLoginData> qry = currSession.createQuery("from UserData where mailId = :mailId and passwrd = :passwrd", UserLoginData.class);
+			List<UserLoginData> lst = qry.setParameter("mailId", userLogin.getUserId()).setParameter("passwrd", userLogin.getPasswrd()).getResultList();
 			if(lst != null && lst.size() > 0) {
 				stringResponce.setResponce("Sucess");
 			}else {
@@ -67,11 +67,11 @@ public class UserDataDaoImpl implements UserDatadao {
 		return stringResponce;
 	}
 	@Override
-	public StringResponce signUp(UserData user)  {
+	public StringResponce signUp(UserLoginData user)  {
 		StringResponce stringResponce = new StringResponce();
 		Session currSession = entityManager.unwrap(Session.class);
 		try {
-			String decryptedPassword = decrypt(user.getPasswrd());
+			String decryptedPassword = decrypt(user.getPassword());
 			currSession.save(user);
 			stringResponce.setResponce("Sucess");
 			return stringResponce;

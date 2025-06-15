@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.heath.app.dao.UserDatadao;
-import com.heath.app.model.UserData;
+import com.heath.app.model.UserLoginData;
 import com.heath.app.pojo.StringResponce;
-import com.heath.app.pojo.UserLogin;
+
 @Service
 public class UserDataServiceImpl implements UserDataService {
 	@Autowired
@@ -18,19 +18,19 @@ public class UserDataServiceImpl implements UserDataService {
 	
 	@Transactional
 	@Override
-	public List<UserData> getUser() {
+	public List<UserLoginData> getUser() {
 		
 		return userDataDao.getUser();
 	}
 	@Transactional
 	@Override
-	public UserData getUserById(int id) {
+	public UserLoginData getUserById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Transactional
 	@Override
-	public void saveUser(UserData user) {
+	public void saveUser(UserLoginData user) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -41,12 +41,12 @@ public class UserDataServiceImpl implements UserDataService {
 		
 	}
 	@Override
-	public StringResponce chkLogin(UserLogin userLogin) {
+	public StringResponce chkLogin(com.heath.app.pojo.UserLogin userLogin) {
 		
 		return userDataDao.chkLogin(userLogin);
 	}
 	@Override
-	public StringResponce signUp(UserData user) {
+	public StringResponce signUp(UserLoginData user) {
 		
 		return userDataDao.signUp(user);
 	}
