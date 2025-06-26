@@ -2,13 +2,26 @@ package com.heath.app.controller;
 
 import java.util.List;
 
+import com.heath.app.pojo.AuthResponse;
 import com.heath.app.pojo.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import com.heath.app.model.UserLoginData;
 import com.heath.app.pojo.StringResponce;
 import com.heath.app.service.UserDataService;
+
+import com.heath.app.util.JwtUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/api")
@@ -17,6 +30,12 @@ public class UserDataController {
 
 	@Autowired
 	private UserDataService userDataService;
+	@Autowired
+	private AuthenticationManager authManager;
+
+	@Autowired
+	private JwtUtil jwtUtil;
+
 	@GetMapping("/admin/getUserData")
 	public List<UserLoginData> getUser() {
 
@@ -24,8 +43,14 @@ public class UserDataController {
 	}
 
 	@PostMapping("/public/chkLogin")
-	public StringResponce chkLogin(@RequestBody UserLogin userLogin) {
-		return userDataService.chkLogin(userLogin);
+	public ResponseEntity<?> chkLogin(@RequestBody UserLogin userLogin) {
+
+		Authentication auth = authManager.authenticate(
+				new UsernamePasswordAuthenticationToken(userLogin.getUserId(), userLogin.getPasswrd()));
+		String token = jwtUtil.generateToken(userLogin.getUserId());
+		return ResponseEntity.ok(new AuthResponse(token));
+
+		//return userDataService.chkLogin(userLogin);
 	}
 
 	@PostMapping("/public/signup")
