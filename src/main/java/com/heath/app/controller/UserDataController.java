@@ -4,19 +4,14 @@ import java.util.List;
 
 import com.heath.app.pojo.UserLogin;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.heath.app.model.UserLoginData;
 import com.heath.app.pojo.StringResponce;
 import com.heath.app.service.UserDataService;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserDataController {
 
@@ -36,6 +31,18 @@ public class UserDataController {
 	@PostMapping("/public/signup")
 	public StringResponce signUp(@RequestBody UserLoginData useData) {
 		return userDataService.signUp(useData);
+	}
+	@GetMapping("/public/getUserById/{id}")
+	public UserLoginData getUserById(@PathVariable int id) {
+		return userDataService.getUserById(id);
+	}
+	@PostMapping("/public/saveUser")
+	public void saveUser(@RequestBody UserLoginData useData) {
+		userDataService.saveUser(useData);
+	}
+	@DeleteMapping("/public/deleteUser")
+	public void deleteUser(@RequestBody int id) {
+		userDataService.deleteUser(id);
 	}
 	
 }

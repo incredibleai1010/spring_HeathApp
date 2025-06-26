@@ -12,8 +12,8 @@ public class UserLoginData {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id", nullable = false, unique = true)
 	private Integer userId;
-	@Column(name = "usernme",nullable = false)
-	private String usernme ;
+	@Column(name = "username",nullable = false)
+	private String username ;
 	@Column(name = "password",nullable = false)
 	private String password ;
 	@Column(name = "email", nullable = false, unique = true)
@@ -48,11 +48,11 @@ public class UserLoginData {
 	}
 
 	public String getUsernme() {
-		return usernme;
+		return username;
 	}
 
 	public void setUsernme(String usernme) {
-		this.usernme = usernme;
+		this.username = usernme;
 	}
 
 	public String getPassword() {
@@ -147,7 +147,7 @@ public class UserLoginData {
 	public String toString() {
 		return "UserLoginData{" +
 				"userId=" + userId +
-				", usernme='" + usernme + '\'' +
+				", usernme='" + username + '\'' +
 				", password='" + password + '\'' +
 				", email='" + email + '\'' +
 				", date_joined=" + date_joined +
@@ -166,11 +166,11 @@ public class UserLoginData {
 	public boolean equals(Object o) {
 		if (o == null || getClass() != o.getClass()) return false;
 		UserLoginData that = (UserLoginData) o;
-		return Objects.equals(userId, that.userId) && Objects.equals(usernme, that.usernme) && Objects.equals(password, that.password) && Objects.equals(email, that.email) && Objects.equals(date_joined, that.date_joined) && Objects.equals(last_login, that.last_login) && Objects.equals(status, that.status) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(createdBy, that.createdBy) && Objects.equals(updatedBy, that.updatedBy) && Objects.equals(personalInfo, that.personalInfo) && Objects.equals(physicalInfo, that.physicalInfo);
+		return Objects.equals(userId, that.userId) && Objects.equals(username, that.username) && Objects.equals(password, that.password) && Objects.equals(email, that.email) && Objects.equals(date_joined, that.date_joined) && Objects.equals(last_login, that.last_login) && Objects.equals(status, that.status) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(createdBy, that.createdBy) && Objects.equals(updatedBy, that.updatedBy) && Objects.equals(personalInfo, that.personalInfo) && Objects.equals(physicalInfo, that.physicalInfo);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(userId, usernme, password, email, date_joined, last_login, status, createdAt, updatedAt, createdBy, updatedBy, personalInfo, physicalInfo);
+		return Objects.hash(userId, username, password, email, date_joined, last_login, status, createdAt, updatedAt, createdBy, updatedBy, personalInfo, physicalInfo);
 	}
 }

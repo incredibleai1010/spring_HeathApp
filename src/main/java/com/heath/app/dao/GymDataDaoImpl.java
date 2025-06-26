@@ -18,8 +18,27 @@ public class GymDataDaoImpl implements GymDatadao {
     public List<GymRegistration> getGymList() {
         Session currSession = entityManager.unwrap(Session.class);
         Query<GymRegistration> qry = currSession.createQuery("from GymRegistration", GymRegistration.class);
-        List<GymRegistration> lst1 = qry.getResultList();
-        return lst1;
+        List<GymRegistration> lst= qry.getResultList();
+        return lst;
     }
+    @Override
+    public GymRegistration getGymById(int id) {
+        return entityManager.find(GymRegistration.class, id);
+    }
+
+    @Override
+    public void saveGym(GymRegistration gym) {
+        entityManager.persist(gym);
+
+    }
+
+    @Override
+    public void deleteGym(int id) {
+        GymRegistration gym = entityManager.find(GymRegistration.class, id);
+        if (gym != null) {
+            entityManager.remove(gym);
+        }
+    }
+
 
 }

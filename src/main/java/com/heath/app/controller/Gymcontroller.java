@@ -1,12 +1,10 @@
 package com.heath.app.controller;
 
 import com.heath.app.model.GymRegistration;
+import com.heath.app.model.UserLoginData;
 import com.heath.app.service.GymDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,16 @@ public class Gymcontroller {
     public List<GymRegistration> getGymList() {
         return gymDataService.getGymList();
     }
-
+    @GetMapping("/public/getGymById/{id}")
+    public GymRegistration getGymById(@PathVariable int id) {
+        return gymDataService.getGymById(id);
+    }
+    @PostMapping("/public/saveGym")
+    public void saveUser(@RequestBody GymRegistration gymData) {
+        gymDataService.saveGym(gymData);
+    }
+    @DeleteMapping("/public/deleteGym")
+    public void deleteUser(@RequestBody int id) {
+        gymDataService.deleteGym(id);
+    }
 }

@@ -18,4 +18,20 @@ public class GymDataServiceImpl implements GymDataService{
 
         return gymDataDao.getGymList();
     }
+
+    @Override
+    public GymRegistration getGymById(int id) {
+        return gymDataDao.getGymById(id);
+    }
+
+    @Override
+    public void saveGym(GymRegistration user) {
+        gymDataDao.saveGym(user);
+    }
+
+    @Override
+    public void deleteGym(int id) {
+        gymDataDao.deleteGym(id);
+    }
+
 }

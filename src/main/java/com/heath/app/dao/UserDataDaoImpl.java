@@ -9,6 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import com.heath.app.pojo.UserLogin;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,20 +32,21 @@ public class UserDataDaoImpl implements UserDatadao {
 
 	@Override
 	public UserLoginData getUserById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.find(UserLoginData.class, id);
 	}
 
 	@Override
 	public void saveUser(UserLoginData user) {
-		// TODO Auto-generated method stub
-		
+		entityManager.persist(user);
+
 	}
 
 	@Override
 	public void deleteUser(int id) {
-		// TODO Auto-generated method stub
-		
+		UserLoginData user = entityManager.find(UserLoginData.class, id);
+		if (user != null) {
+			entityManager.remove(user);
+		}
 	}
 
 	@Override
