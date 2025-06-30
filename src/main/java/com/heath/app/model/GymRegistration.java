@@ -30,7 +30,7 @@ public class GymRegistration {
     private String emailAddress ;
     @Column(name = "website",nullable = false)
     private String website ;
-    @Column(name = "certified",nullable = false)
+    @Column(name = "certified")
     private boolean certified ;
     @Column(name = "certification_details",nullable = false)
     private String certification_details ;
@@ -42,14 +42,14 @@ public class GymRegistration {
     private String managerName ;
     @Column(name = "emergency_contact",nullable = false)
     private String emergencyContact ;
-    @Column(name = "created_at",nullable = false)
+    @Column(name = "created_at")
     private LocalDateTime  createdAt ;
-    @Column(name = "updated_at",nullable = false)
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt ;
-    @Column(name = "created_by",nullable = false)
-    private String  createdBy ;
-    @Column(name = "updated_by",nullable = false)
-    private String updatedBy ;
+//    @Column(name = "created_by")
+//    private String  createdBy ;
+//    @Column(name = "updated_by")
+//    private String updatedBy ;
 
     public Integer getId() {
         return id;
@@ -195,21 +195,7 @@ public class GymRegistration {
         this.updatedAt = updatedAt;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
 
     @Override
     public String toString() {
@@ -232,8 +218,7 @@ public class GymRegistration {
                 ", emergencyContact='" + emergencyContact + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-                ", createdBy='" + createdBy + '\'' +
-                ", updatedBy='" + updatedBy + '\'' +
+
                 '}';
     }
 
@@ -241,11 +226,11 @@ public class GymRegistration {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         GymRegistration gymData = (GymRegistration) o;
-        return certified == gymData.certified && establishedYear == gymData.establishedYear && Objects.equals(id, gymData.id) && Objects.equals(gymName, gymData.gymName) && Objects.equals(address, gymData.address) && Objects.equals(city, gymData.city) && Objects.equals(state, gymData.state) && Objects.equals(pincode, gymData.pincode) && Objects.equals(googleMapsUrl, gymData.googleMapsUrl) && Objects.equals(contactNumber, gymData.contactNumber) && Objects.equals(emailAddress, gymData.emailAddress) && Objects.equals(website, gymData.website) && Objects.equals(certification_details, gymData.certification_details) && Objects.equals(ownerName, gymData.ownerName) && Objects.equals(managerName, gymData.managerName) && Objects.equals(emergencyContact, gymData.emergencyContact) && Objects.equals(createdAt, gymData.createdAt) && Objects.equals(updatedAt, gymData.updatedAt) && Objects.equals(createdBy, gymData.createdBy) && Objects.equals(updatedBy, gymData.updatedBy);
+        return certified == gymData.certified && establishedYear == gymData.establishedYear && Objects.equals(id, gymData.id) && Objects.equals(gymName, gymData.gymName) && Objects.equals(address, gymData.address) && Objects.equals(city, gymData.city) && Objects.equals(state, gymData.state) && Objects.equals(pincode, gymData.pincode) && Objects.equals(googleMapsUrl, gymData.googleMapsUrl) && Objects.equals(contactNumber, gymData.contactNumber) && Objects.equals(emailAddress, gymData.emailAddress) && Objects.equals(website, gymData.website) && Objects.equals(certification_details, gymData.certification_details) && Objects.equals(ownerName, gymData.ownerName) && Objects.equals(managerName, gymData.managerName) && Objects.equals(emergencyContact, gymData.emergencyContact) && Objects.equals(createdAt, gymData.createdAt) && Objects.equals(updatedAt, gymData.updatedAt) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, gymName, address, city, state, pincode, googleMapsUrl, contactNumber, emailAddress, website, certified, certification_details, establishedYear, ownerName, managerName, emergencyContact, createdAt, updatedAt, createdBy, updatedBy);
+        return Objects.hash(id, gymName, address, city, state, pincode, googleMapsUrl, contactNumber, emailAddress, website, certified, certification_details, establishedYear, ownerName, managerName, emergencyContact, createdAt, updatedAt);
     }
 }

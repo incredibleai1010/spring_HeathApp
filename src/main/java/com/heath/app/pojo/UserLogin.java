@@ -1,20 +1,22 @@
 package com.heath.app.pojo;
 
 public class UserLogin {
-	private String userId ;
-	private String passwrd ;
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getPasswrd() {
-		return passwrd;
-	}
-	public void setPasswrd(String passwrd) {
-		this.passwrd = passwrd;
-	}
-	
+	private String mailId ;
+	private String password ;
 
+	public String getMailId() {
+		return mailId;
+	}
+
+	public void setMailId(String mailId) {
+		this.mailId = mailId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

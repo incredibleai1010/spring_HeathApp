@@ -14,7 +14,7 @@ public class UserLoginData {
 	private Integer userId;
 	@Column(name = "username",nullable = false)
 	private String username ;
-	@Column(name = "password",nullable = false)
+	@Column(name = "password_hash",nullable = false)
 	private String password ;
 	@Column(name = "email", nullable = false, unique = true)
 	private String email ;
@@ -33,10 +33,11 @@ public class UserLoginData {
 	@Column(name = "updated_by",nullable = false)
 	private String updatedBy ;
 
-	@OneToOne(mappedBy = "userLoginData", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private PersonalInfo personalInfo;
-	@OneToOne(mappedBy = "userLoginData", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private PhysicalInfo physicalInfo;
+
 
 
 	public Integer getUserId() {
@@ -47,12 +48,12 @@ public class UserLoginData {
 		this.userId = userId;
 	}
 
-	public String getUsernme() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUsernme(String usernme) {
-		this.username = usernme;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -147,7 +148,7 @@ public class UserLoginData {
 	public String toString() {
 		return "UserLoginData{" +
 				"userId=" + userId +
-				", usernme='" + username + '\'' +
+				", username='" + username + '\'' +
 				", password='" + password + '\'' +
 				", email='" + email + '\'' +
 				", date_joined=" + date_joined +

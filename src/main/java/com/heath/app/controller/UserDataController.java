@@ -43,14 +43,17 @@ public class UserDataController {
 	}
 
 	@PostMapping("/public/chkLogin")
-	public ResponseEntity<?> chkLogin(@RequestBody UserLogin userLogin) {
+	public StringResponce chkLogin(@RequestBody UserLogin userLogin) {
 
-		Authentication auth = authManager.authenticate(
-				new UsernamePasswordAuthenticationToken(userLogin.getUserId(), userLogin.getPasswrd()));
-		String token = jwtUtil.generateToken(userLogin.getUserId());
-		return ResponseEntity.ok(new AuthResponse(token));
+//		Authentication auth = authManager.authenticate(
+//				new UsernamePasswordAuthenticationToken(userLogin.getMailId(), userLogin.getPassword()));
+//		UserLogin userDetails = (UserLogin) auth.getPrincipal();
+//
+//		String token = jwtUtil.generateToken(userDetails);
+		//userDataService.chkLogin(userLogin);
+	//	return ResponseEntity.ok(new AuthResponse(token));
 
-		//return userDataService.chkLogin(userLogin);
+		return userDataService.chkLogin(userLogin);
 	}
 
 	@PostMapping("/public/signup")

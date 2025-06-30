@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.heath.app.model.UserLoginData;
@@ -22,6 +23,7 @@ import jakarta.persistence.EntityManager;
 public class UserDataDaoImpl implements UserDatadao {
 	@Autowired
 	private EntityManager entityManager;
+
 	@Override
 	public List<UserLoginData> getUser() {
 		Session currSession = entityManager.unwrap(Session.class);
@@ -55,10 +57,10 @@ public class UserDataDaoImpl implements UserDatadao {
 		Session currSession = entityManager.unwrap(Session.class);
 		try {
 //			String decryptedPassword = decrypt(userLogin.getPasswrd());
-			Query<UserLoginData> qry = currSession.createQuery("from UserData where mailId = :mailId and passwrd = :passwrd", UserLoginData.class);
-			List<UserLoginData> lst = qry.setParameter("mailId", userLogin.getUserId()).setParameter("passwrd", userLogin.getPasswrd()).getResultList();
+			Query<UserLoginData> qry = currSession.createQuery("from UserLoginData where email = :mailId and password = :password", UserLoginData.class);
+			List<UserLoginData> lst = qry.setParameter("mailId", userLogin.getMailId()).setParameter("password", userLogin.getPassword()).getResultList();
 			if(lst != null && lst.size() > 0) {
-				stringResponce.setResponce("Sucess");
+				stringResponce.setResponce("success");
 			}else {
 				stringResponce.setResponce("fail");
 		}
@@ -68,35 +70,40 @@ public class UserDataDaoImpl implements UserDatadao {
 		}
 		return stringResponce;
 	}
+
 	@Override
 	public StringResponce signUp(UserLoginData user)  {
 		StringResponce stringResponce = new StringResponce();
 		Session currSession = entityManager.unwrap(Session.class);
 		try {
-			String decryptedPassword = decrypt(user.getPassword());
+			//String decryptedPassword = decrypt(user.getPassword());
+			user.getPhysicalInfo().setUser(user);
+			user.getPersonalInfo().setUser(user);
+			//user.setPassword(passwordEncoder.encode(user.getPassword()));
 			currSession.save(user);
-			stringResponce.setResponce("Sucess");
+			stringResponce.setResponce("Success");
 			return stringResponce;
 		} catch (Exception e) {
+			stringResponce.setResponce("fail"+e);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return stringResponce;
 	}
 	
-	private String decrypt(String encryptedPassword) throws Exception {
-        byte[] keyBytes = "1234567890123456".getBytes(); // Use the same 16-character key
-        byte[] ivBytes = "1234567890123456".getBytes();  // Use the same 16-character IV
-        SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "AES");
-        IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
-
-        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding", "BC");
-        cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
-
-        byte[] decodedBytes = Base64.getDecoder().decode(encryptedPassword);
-        byte[] decryptedBytes = cipher.doFinal(decodedBytes);
-
-        return new String(decryptedBytes);
-    }
+//	private String decrypt(String encryptedPassword) throws Exception {
+//        byte[] keyBytes = "1234567890123456".getBytes(); // Use the same 16-character key
+//        byte[] ivBytes = "1234567890123456".getBytes();  // Use the same 16-character IV
+//        SecretKeySpec keySpec = new SecretKeySpec(keyBytes, "AES");
+//        IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+//
+//        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding", "BC");
+//        cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
+//
+//        byte[] decodedBytes = Base64.getDecoder().decode(encryptedPassword);
+//        byte[] decryptedBytes = cipher.doFinal(decodedBytes);
+//
+//        return new String(decryptedBytes);
+//    }
 
 }

@@ -12,8 +12,7 @@ public class PhysicalInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Integer id;
-    @Column(name = "user_id",nullable = false)
-    private Integer userId ;
+
     @Column(name = "height_cm",nullable = false)
     private Double  heightCm;
     @Column(name = "weight_kg",nullable = false)
@@ -24,20 +23,22 @@ public class PhysicalInfo {
     private Double bodyFatPercentage ;
     @Column(name = "medical_condition",nullable = false)
     private boolean medicalCondition ;
-    @Column(name = "current_fitness_level",nullable = false)
+    @Column(name = "current_fitness_level")
     private String current_fitness_level ;
-    @Column(name = "created_at",nullable = false)
-    private LocalDateTime createdAt ;
-    @Column(name = "updated_at",nullable = false)
-    private LocalDateTime updatedAt ;
-    @Column(name = "created_by",nullable = false)
-    private String  createdBy ;
-    @Column(name = "updated_by",nullable = false)
-    private String updatedBy ;
 
+    @Column(name = "additional_notes")
+    private String additionalNotes ;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt ;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt ;
+    @Column(name = "created_by")
+    private String  createdBy ;
+    @Column(name = "updated_by")
+    private String updatedBy ;
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false, updatable = false)
-    private UserLoginData userLoginData;
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private UserLoginData user;
 
     public Integer getId() {
         return id;
@@ -45,14 +46,6 @@ public class PhysicalInfo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Double getHeightCm() {
@@ -103,6 +96,14 @@ public class PhysicalInfo {
         this.current_fitness_level = current_fitness_level;
     }
 
+    public String getAdditionalNotes() {
+        return additionalNotes;
+    }
+
+    public void setAdditionalNotes(String additionalNotes) {
+        this.additionalNotes = additionalNotes;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -135,42 +136,42 @@ public class PhysicalInfo {
         this.updatedBy = updatedBy;
     }
 
-    public UserLoginData getUserLoginData() {
-        return userLoginData;
+    public UserLoginData getUser() {
+        return user;
     }
 
-    public void setUserLoginData(UserLoginData userLoginData) {
-        this.userLoginData = userLoginData;
-    }
-
-    @Override
-    public String toString() {
-        return "PhysicalInfo{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", heightCm=" + heightCm +
-                ", weightKg=" + weightKg +
-                ", bmi=" + bmi +
-                ", bodyFatPercentage=" + bodyFatPercentage +
-                ", medicalCondition=" + medicalCondition +
-                ", current_fitness_level='" + current_fitness_level + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", createdBy='" + createdBy + '\'' +
-                ", updatedBy='" + updatedBy + '\'' +
-                ", userLoginData=" + userLoginData +
-                '}';
+    public void setUser(UserLoginData user) {
+        this.user = user;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         PhysicalInfo that = (PhysicalInfo) o;
-        return medicalCondition == that.medicalCondition && Objects.equals(id, that.id) && Objects.equals(userId, that.userId) && Objects.equals(heightCm, that.heightCm) && Objects.equals(weightKg, that.weightKg) && Objects.equals(bmi, that.bmi) && Objects.equals(bodyFatPercentage, that.bodyFatPercentage) && Objects.equals(current_fitness_level, that.current_fitness_level) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(createdBy, that.createdBy) && Objects.equals(updatedBy, that.updatedBy) && Objects.equals(userLoginData, that.userLoginData);
+        return medicalCondition == that.medicalCondition && Objects.equals(id, that.id) && Objects.equals(heightCm, that.heightCm) && Objects.equals(weightKg, that.weightKg) && Objects.equals(bmi, that.bmi) && Objects.equals(bodyFatPercentage, that.bodyFatPercentage) && Objects.equals(current_fitness_level, that.current_fitness_level) && Objects.equals(additionalNotes, that.additionalNotes) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(createdBy, that.createdBy) && Objects.equals(updatedBy, that.updatedBy) && Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, heightCm, weightKg, bmi, bodyFatPercentage, medicalCondition, current_fitness_level, createdAt, updatedAt, createdBy, updatedBy, userLoginData);
+        return Objects.hash(id, heightCm, weightKg, bmi, bodyFatPercentage, medicalCondition, current_fitness_level, additionalNotes, createdAt, updatedAt, createdBy, updatedBy, user);
+    }
+
+    @Override
+    public String toString() {
+        return "PhysicalInfo{" +
+                "id=" + id +
+                ", heightCm=" + heightCm +
+                ", weightKg=" + weightKg +
+                ", bmi=" + bmi +
+                ", bodyFatPercentage=" + bodyFatPercentage +
+                ", medicalCondition=" + medicalCondition +
+                ", current_fitness_level='" + current_fitness_level + '\'' +
+                ", additionalNotes='" + additionalNotes + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", createdBy='" + createdBy + '\'' +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

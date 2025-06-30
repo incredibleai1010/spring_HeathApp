@@ -22,19 +22,25 @@ public class PersonalInfo {
     private String gender ;
     @Column(name = "profile_image_url",nullable = false)
     private String profileImageUrl ;
-    @Column(name = "created_at",nullable = false)
+    @Column(name = "created_at")
     private LocalDateTime createdAt ;
-    @Column(name = "updated_at",nullable = false)
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt ;
-    @Column(name = "created_by",nullable = false)
+    @Column(name = "created_by")
     private String  createdBy ;
-    @Column(name = "updated_by",nullable = false)
+    @Column(name = "updated_by")
     private String updatedBy ;
-
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id",insertable = false, updatable = false)
-    private UserLoginData userLoginData;
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private UserLoginData user;
 
+    public UserLoginData getUser() {
+        return user;
+    }
+
+    public void setUser(UserLoginData user) {
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
@@ -116,13 +122,7 @@ public class PersonalInfo {
         this.updatedBy = updatedBy;
     }
 
-    public UserLoginData getUserLoginData() {
-        return userLoginData;
-    }
 
-    public void setUserLoginData(UserLoginData userLoginData) {
-        this.userLoginData = userLoginData;
-    }
 
     @Override
     public String toString() {
@@ -137,7 +137,7 @@ public class PersonalInfo {
                 ", updatedAt=" + updatedAt +
                 ", createdBy='" + createdBy + '\'' +
                 ", updatedBy='" + updatedBy + '\'' +
-                ", userLoginData=" + userLoginData +
+
                 '}';
     }
 
@@ -145,11 +145,11 @@ public class PersonalInfo {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         PersonalInfo that = (PersonalInfo) o;
-        return Objects.equals(id, that.id) && Objects.equals(fullName, that.fullName) && Objects.equals(cityName, that.cityName) && Objects.equals(pincode, that.pincode) && Objects.equals(gender, that.gender) && Objects.equals(profileImageUrl, that.profileImageUrl) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(createdBy, that.createdBy) && Objects.equals(updatedBy, that.updatedBy) && Objects.equals(userLoginData, that.userLoginData);
+        return Objects.equals(id, that.id) && Objects.equals(fullName, that.fullName) && Objects.equals(cityName, that.cityName) && Objects.equals(pincode, that.pincode) && Objects.equals(gender, that.gender) && Objects.equals(profileImageUrl, that.profileImageUrl) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(createdBy, that.createdBy) && Objects.equals(updatedBy, that.updatedBy) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fullName, cityName, pincode, gender, profileImageUrl, createdAt, updatedAt, createdBy, updatedBy, userLoginData);
+        return Objects.hash(id, fullName, cityName, pincode, gender, profileImageUrl, createdAt, updatedAt, createdBy, updatedBy);
     }
 }

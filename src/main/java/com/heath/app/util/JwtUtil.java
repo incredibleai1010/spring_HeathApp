@@ -1,17 +1,20 @@
 package com.heath.app.util;
 
+import com.heath.app.pojo.UserLogin;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Component;
+
 import javax.crypto.SecretKey;
 import java.util.Date;
-
+@Component
 public class JwtUtil {
-    private final SecretKey key = Keys.hmacShaKeyFor("your256bitsecretkeymustbeatleast32bytes!".getBytes());
+    private final SecretKey key = Keys.hmacShaKeyFor("myheathapp@bitsecretkeymustbeatleast32bytesLong$$$".getBytes());
     private final long expiration = 86400000;
 
-    public String generateToken(String username) {
+    public String generateToken(UserLogin userLogin) {
         return Jwts.builder()
-                .subject(username)
+                .subject(userLogin.getMailId())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(key)

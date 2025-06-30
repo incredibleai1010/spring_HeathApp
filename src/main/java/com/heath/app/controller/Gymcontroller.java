@@ -2,6 +2,7 @@ package com.heath.app.controller;
 
 import com.heath.app.model.GymRegistration;
 import com.heath.app.model.UserLoginData;
+import com.heath.app.pojo.StringResponce;
 import com.heath.app.service.GymDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/gym")
+@RequestMapping("/api/public")
 @CrossOrigin(origins = "http://localhost:4200")
 public class Gymcontroller {
 
@@ -23,9 +24,9 @@ public class Gymcontroller {
     public GymRegistration getGymById(@PathVariable int id) {
         return gymDataService.getGymById(id);
     }
-    @PostMapping("/public/saveGym")
-    public void saveUser(@RequestBody GymRegistration gymData) {
-        gymDataService.saveGym(gymData);
+    @PostMapping("/saveGym")
+    public StringResponce saveUser(@RequestBody GymRegistration gymData) {
+       return  gymDataService.saveGym(gymData);
     }
     @DeleteMapping("/public/deleteGym")
     public void deleteUser(@RequestBody int id) {

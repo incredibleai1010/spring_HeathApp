@@ -2,6 +2,7 @@ package com.heath.app.dao;
 
 import com.heath.app.model.GymRegistration;
 import com.heath.app.model.UserLoginData;
+import com.heath.app.pojo.StringResponce;
 import jakarta.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -27,8 +28,22 @@ public class GymDataDaoImpl implements GymDatadao {
     }
 
     @Override
-    public void saveGym(GymRegistration gym) {
-        entityManager.persist(gym);
+    public StringResponce saveGym(GymRegistration gym) {
+        StringResponce stringResponce = new StringResponce();
+        Session currSession = entityManager.unwrap(Session.class);
+        try {
+
+
+            //user.setPassword(passwordEncoder.encode(user.getPassword()));
+            currSession.save(gym);
+            stringResponce.setResponce("Success");
+            return stringResponce;
+        } catch (Exception e) {
+            stringResponce.setResponce("fail"+e);
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return stringResponce;
 
     }
 
